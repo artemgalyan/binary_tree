@@ -12,3 +12,4 @@ It's just a simple binary tree.
 # To be made later:
 1. Deletion of nodes
 2. Self-adjusting (but I'm note sure if I'll ever do this)
+3. Iterators
