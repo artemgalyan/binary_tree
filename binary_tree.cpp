@@ -18,26 +18,31 @@ T &BinaryTree<T>::SearchInSubTree(int search_key, Node<T> *finder) {
 }
 
 template<typename T>
-void BinaryTree<T>::Push(int push_key, T push_value) {
+bool BinaryTree<T>::Push(int push_key, T push_value) {
   ++size_;
   if (IsEmpty()) {
     root_ = new Node(push_key, push_value, root_);
-    return;
+    return true;
   }
   Node<T> *push_node = new Node(push_key, push_value, root_);
   Node<T> *ahead_node = root_;
   Node<T> *this_node = root_;
   while (ahead_node != nullptr) {
     this_node = ahead_node;
-    if (push_key > this_node->key_)
+    if (push_value == this_node->value_)
+      return false;
+    else if (push_key > this_node->key_)
       ahead_node = this_node->left_;
     else
       ahead_node = this_node->right_;
   }
+  if (push_value == this_node->value_)
+    return false;
   if (push_key > this_node->key_)
     this_node->left_ = push_node;
   else
     this_node->right_ = push_node;
+  return true;
 }
 
 template<typename T>
@@ -89,4 +94,16 @@ int BinaryTree<T>::Count(const T &value) const {
 template<typename T>
 bool BinaryTree<T>::Contains(const T &value) const {
   return Count(value);
+}
+
+template<typename T>
+void BinaryTree<T>::Print() const {
+  if (IsEmpty()) {
+    std::cout << "The container is empty!";
+  }
+  auto func = [](Node<T>* point, T val) -> bool {
+    std::cout << point->value_ << " ";
+    return true;
+  };
+  TreeTraversal(func, T());
 }
