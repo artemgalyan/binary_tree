@@ -30,6 +30,7 @@ class BinaryTree {
   int Count(const T& value) const;
   bool Contains(const T& value) const;
   void Print() const;
+  bool Erase(T value);
  private:
   T &SearchInSubTree(int search_key, Node<T> *finder);
   int TreeTraversal(bool (*function)(Node<T>*, T), T value, Node<T>* start_point = nullptr) const;
